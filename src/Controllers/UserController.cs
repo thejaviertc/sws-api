@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SteamWorkshopStats.Models;
+using SteamWorkshopStats.Services;
 
 namespace SteamWorkshopStats.Controllers;
 
@@ -7,13 +8,20 @@ namespace SteamWorkshopStats.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
+    private DiscordService _discordService;
+
+    public UserController(DiscordService discordService)
+    {
+        _discordService = discordService;
+    }
+
     [HttpGet("id/{id}")]
     public ActionResult<User> GetUserById(string id)
     {
         User user = new User
         {
             SteamId = id,
-            Username = "Paco",
+            Username = _discordService.Test(),
             ProfileImageUrl = "adadas",
             Views = 10,
             Suscribers = 100,

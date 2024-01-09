@@ -1,7 +1,10 @@
+using SteamWorkshopStats.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Services
 builder.Services.AddControllers();
+builder.Services.AddSingleton<DiscordService>();
 
 var app = builder.Build();
 
