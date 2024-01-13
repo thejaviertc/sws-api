@@ -8,20 +8,20 @@ namespace SteamWorkshopStats.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    private DiscordService _discordService;
+    private SteamService _steamService;
 
-    public UserController(DiscordService discordService)
+    public UserController(SteamService steamService)
     {
-        _discordService = discordService;
+        _steamService = steamService;
     }
 
     [HttpGet("id/{id}")]
-    public ActionResult<User> GetUserById(string id)
+    public async Task<ActionResult<User>> GetUserById(string id)
     {
         User user = new User
         {
-            SteamId = id,
-            Username = _discordService.Test(),
+            SteamId = await _steamService.LogTest(id),
+            Username = "Paco",
             ProfileImageUrl = "adadas",
             Views = 10,
             Suscribers = 100,
