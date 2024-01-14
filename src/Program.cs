@@ -10,7 +10,7 @@ builder.Services.AddHttpClient("SteamClient", client =>
     client.BaseAddress = new Uri("https://api.steampowered.com/");
 });
 
-builder.Services.AddSingleton<SteamService>();
+builder.Services.AddSingleton<ISteamService, SteamService>();
 
 var app = builder.Build();
 

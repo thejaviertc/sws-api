@@ -3,7 +3,7 @@ using SteamWorkshopStats.Models.Records;
 
 namespace SteamWorkshopStats.Services;
 
-public class SteamService
+public class SteamService : ISteamService
 {
     private readonly IConfiguration _configuration;
     private readonly IHttpClientFactory _httpClientFactory;

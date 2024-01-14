@@ -8,9 +8,9 @@ namespace SteamWorkshopStats.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    private SteamService _steamService;
+    private ISteamService _steamService;
 
-    public UserController(SteamService steamService)
+    public UserController(ISteamService steamService)
     {
         _steamService = steamService;
     }
