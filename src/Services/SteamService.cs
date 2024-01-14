@@ -14,6 +14,12 @@ public class SteamService
         _httpClientFactory = httpClientFactory;
     }
 
+    /// <summary>
+    /// Retrieves the SteamID using the Vanity URL.
+    /// </summary>
+    /// <param name="profileId">ProfileID from the URL of the User's profile</param>
+    /// <returns>The SteamID of the user</returns>
+    /// <exception cref="Exception"></exception>
     public async Task<string> GetSteamId(string profileId)
     {
         var client = _httpClientFactory.CreateClient("SteamClient");
@@ -29,6 +35,7 @@ public class SteamService
             if (responseData.Response.Success == 1)
                 return responseData.Response.SteamId;
 
+            // TODO: 
             return null;
         }
 
@@ -36,22 +43,12 @@ public class SteamService
         throw new Exception("Unknown Error");
     }
 
-    //public User GetUser(string steamId)
-    //{
-    //    return new User
-    //    {
-    //        SteamId = steamId,
-    //        Username = "Paco",
-    //        ProfileImageUrl = "adadas",
-    //        Views = 10,
-    //        Suscribers = 100,
-    //        Favorites = 12,
-    //        Likes = 10,
-    //        Dislikes = 2,
-    //        Addons = new List<Addon>()
-    //    };
-    //}
-
+    /// <summary>
+    /// Retrieves the player's profile information using the SteamID.
+    /// </summary>
+    /// <param name="steamId">The SteamID of the player</param>
+    /// <returns>The player's profile information, including the username and the profile image URL.</returns>
+    /// <exception cref="Exception"></exception>
     public async Task<GetPlayerSummariesPlayer> GetProfileInfo(string steamId)
     {
         var client = _httpClientFactory.CreateClient("SteamClient");
@@ -67,6 +64,7 @@ public class SteamService
             if (responseData.Response.Players.Count > 0)
                 return responseData.Response.Players[0];
 
+            // TODO: 
             return null;
         }
 
