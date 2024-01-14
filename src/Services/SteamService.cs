@@ -15,10 +15,10 @@ public class SteamService
     }
 
     /// <summary>
-    /// Retrieves the SteamID using the Vanity URL.
+    /// Retrieves the SteamID of the User, using the Vanity URL.
     /// </summary>
     /// <param name="profileId">ProfileID from the URL of the User's profile</param>
-    /// <returns>The SteamID of the user</returns>
+    /// <returns>The SteamID of the User</returns>
     /// <exception cref="Exception"></exception>
     public async Task<string> GetSteamId(string profileId)
     {
@@ -44,10 +44,10 @@ public class SteamService
     }
 
     /// <summary>
-    /// Retrieves the player's profile information using the SteamID.
+    /// Retrieves the User's profile information using the SteamID.
     /// </summary>
-    /// <param name="steamId">The SteamID of the player</param>
-    /// <returns>The player's profile information, including the username and the profile image URL.</returns>
+    /// <param name="steamId">The SteamID of the User</param>
+    /// <returns>The User's profile information, including the username and the profile image URL.</returns>
     /// <exception cref="Exception"></exception>
     public async Task<GetPlayerSummariesPlayer> GetProfileInfo(string steamId)
     {
@@ -72,6 +72,11 @@ public class SteamService
         throw new Exception("Unknown Error");
     }
 
+    /// <summary>
+    /// Retrieves a list of Addons made by the User based on their SteamID.
+    /// </summary>
+    /// <param name="steamId">The SteamID of the User.</param>
+    /// <returns>A list of Addons sorted from newest to oldest.</returns>
     public async Task<List<Addon>> GetAddons(string steamId)
     {
         var client = _httpClientFactory.CreateClient("SteamClient");
@@ -102,6 +107,8 @@ public class SteamService
                         Dislikes = addon.Votes.Dislikes
                     });
                 }
+
+                addons.Sort();
             }
 
             return addons;

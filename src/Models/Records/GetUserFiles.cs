@@ -17,7 +17,7 @@ public record class GetUserFilesResponse
 public record class PublishedFile
 {
     [JsonPropertyName("publishedfileid")]
-    public string Id { get; init; }
+    public long Id { get; init; }
 
     [JsonPropertyName("title")]
     public string Title { get; init; }

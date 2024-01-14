@@ -1,8 +1,8 @@
 ﻿namespace SteamWorkshopStats.Models;
 
-public struct Addon
+public struct Addon : IComparable<Addon>
 {
-    public string Id { get; init; }
+    public long Id { get; init; }
 
     public string Title { get; init; }
 
@@ -19,4 +19,9 @@ public struct Addon
     public int Dislikes { get; init; }
 
     public int Stars { get; init; }
+
+    public int CompareTo(Addon other)
+    {
+        return other.Id.CompareTo(Id);
+    }
 }
