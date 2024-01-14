@@ -46,11 +46,11 @@ public class UserController : ControllerBase
             SteamId = steamId,
             Username = profileInfo.Username,
             ProfileImageUrl = profileInfo.ProfileImageUrl,
-            Views = 0,
-            Suscribers = 0,
-            Favorites = 0,
-            Likes = 0,
-            Dislikes = 0,
+            Views = addons.Sum(addon => addon.Views),
+            Suscribers = addons.Sum(addon => addon.Suscribers),
+            Favorites = addons.Sum(addon => addon.Favorites),
+            Likes = addons.Sum(addon => addon.Likes),
+            Dislikes = addons.Sum(addon => addon.Dislikes),
             Addons = addons
         };
     }
