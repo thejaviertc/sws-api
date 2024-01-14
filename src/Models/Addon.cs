@@ -24,4 +24,9 @@ public struct Addon : IComparable<Addon>
     {
         return other.Id.CompareTo(Id);
     }
+
+    public static int GetStars(int votes, float score)
+    {
+        return votes >= 25 ? (int)Math.Ceiling(score * 5) : 0;
+    }
 }

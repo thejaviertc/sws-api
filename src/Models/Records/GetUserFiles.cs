@@ -40,6 +40,9 @@ public record class PublishedFile
 
 public record class VoteData
 {
+    [JsonPropertyName("score")]
+    public float Score { get; init; }
+
     [JsonPropertyName("votes_up")]
     public int Likes { get; init; }
 

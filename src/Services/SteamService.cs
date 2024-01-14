@@ -104,7 +104,8 @@ public class SteamService
                         Suscribers = addon.Subscribers,
                         Favorites = addon.Favorites,
                         Likes = addon.Votes.Likes,
-                        Dislikes = addon.Votes.Dislikes
+                        Dislikes = addon.Votes.Dislikes,
+                        Stars = Addon.GetStars(addon.Votes.Likes + addon.Votes.Dislikes, addon.Votes.Score)
                     });
                 }
 
