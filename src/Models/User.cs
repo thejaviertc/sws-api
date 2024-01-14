@@ -6,7 +6,7 @@ public struct User
 
     public string Username { get; init; }
 
-    public string ProfileImageUrl { get; init; }
+    public Uri ProfileImageUrl { get; init; }
 
     public int Views { get; init; }
 

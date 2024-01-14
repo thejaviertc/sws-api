@@ -6,7 +6,7 @@ public struct Addon
 
     public string Title { get; init; }
 
-    public string ImageUrl { get; init; }
+    public Uri ImageUrl { get; init; }
 
     public int Views { get; init; }
 

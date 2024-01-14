@@ -1,6 +1,6 @@
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace SteamWorkshopStats.Models;
+namespace SteamWorkshopStats.Models.Records;
 
 public record class ResolveVanityUrl
 {

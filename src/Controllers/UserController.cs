@@ -15,28 +15,43 @@ public class UserController : ControllerBase
         _steamService = steamService;
     }
 
-    [HttpGet("id/{id}")]
-    public async Task<ActionResult<User>> GetUserById(string id)
+    [HttpGet("id/{profileId}")]
+    public async Task<ActionResult<User>> GetUserByProfileId(string profileId)
     {
-        User user = new User
-        {
-            SteamId = await _steamService.LogTest(id),
-            Username = "Paco",
-            ProfileImageUrl = "adadas",
-            Views = 10,
-            Suscribers = 100,
-            Favorites = 12,
-            Likes = 10,
-            Dislikes = 2,
-            Addons = new List<Addon>()
-        };
+        string steamId = await _steamService.GetSteamId(profileId);
 
-        return user;
+        if (steamId is null)
+            return NotFound();
+
+        return await GetUser(steamId);
     }
 
     [HttpGet("profiles/{steamId}")]
-    public IActionResult GetUserBySteamId(string steamId)
+    public async Task<ActionResult<User>> GetUserBySteamId(string steamId)
     {
-        throw new NotImplementedException();
+        return await GetUser(steamId);
+    }
+
+    private async Task<ActionResult<User>> GetUser(string steamId)
+    {
+        var profileInfo = await _steamService.GetProfileInfo(steamId);
+
+        if (profileInfo is null)
+            return NotFound();
+
+        var addons = await _steamService.GetAddons(steamId);
+
+        return new User
+        {
+            SteamId = steamId,
+            Username = profileInfo.Username,
+            ProfileImageUrl = profileInfo.ProfileImageUrl,
+            Views = 0,
+            Suscribers = 0,
+            Favorites = 0,
+            Likes = 0,
+            Dislikes = 0,
+            Addons = addons
+        };
     }
 }

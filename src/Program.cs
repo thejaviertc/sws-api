@@ -4,7 +4,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Services
 builder.Services.AddControllers();
-builder.Services.AddSingleton<DiscordService>();
+
+builder.Services.AddHttpClient("SteamClient", client =>
+{
+    client.BaseAddress = new Uri("https://api.steampowered.com/");
+});
+
+builder.Services.AddSingleton<SteamService>();
 
 var app = builder.Build();
 
