@@ -9,10 +9,12 @@ namespace SteamWorkshopStats.Controllers;
 public class UserController : ControllerBase
 {
     private ISteamService _steamService;
+    private DiscordService _discordService;
 
-    public UserController(ISteamService steamService)
+    public UserController(ISteamService steamService, DiscordService discordService)
     {
         _steamService = steamService;
+        _discordService = discordService;
     }
 
     [HttpGet("id/{profileId}")]
@@ -41,7 +43,7 @@ public class UserController : ControllerBase
 
         var addons = await _steamService.GetAddons(steamId);
 
-        return new User
+        var user = new User
         {
             SteamId = steamId,
             Username = profileInfo.Username,
@@ -53,5 +55,9 @@ public class UserController : ControllerBase
             Dislikes = addons.Sum(addon => addon.Dislikes),
             Addons = addons
         };
+
+        _discordService.LogUser(user);
+
+        return user;
     }
 }

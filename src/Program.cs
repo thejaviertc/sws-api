@@ -10,7 +10,13 @@ builder.Services.AddHttpClient("SteamClient", client =>
     client.BaseAddress = new Uri("https://api.steampowered.com/");
 });
 
+builder.Services.AddHttpClient("DiscordClient", client =>
+{
+    client.BaseAddress = new Uri("https://discord.com/api/webhooks/");
+});
+
 builder.Services.AddSingleton<ISteamService, SteamService>();
+builder.Services.AddSingleton<DiscordService>();
 
 var app = builder.Build();
 
