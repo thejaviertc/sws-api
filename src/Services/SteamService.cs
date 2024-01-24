@@ -18,7 +18,7 @@ public class SteamService : ISteamService
 	/// <summary>
 	/// Retrieves the SteamID of the User, using the Vanity URL.
 	/// </summary>
-	/// <param name="profileId">ProfileID from the URL of the User's profile</param>
+	/// <param name="profileId">The ProfileID from the URL of the User's profile</param>
 	/// <returns>The SteamID of the User</returns>
 	/// <exception cref="Exception"></exception>
 	public async Task<string> GetSteamId(string profileId)

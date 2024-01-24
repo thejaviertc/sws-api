@@ -18,6 +18,11 @@ public class UserController : ControllerBase
 		_discordService = discordService;
 	}
 
+	/// <summary>
+	/// Obtains an User given his ProfileID
+	/// </summary>
+	/// <param name="profileId">The ProfileID from the URL of the User's profile</param>
+	/// <returns>An User</returns>
 	[HttpGet("id/{profileId}")]
 	public async Task<ActionResult<User>> GetUserByProfileId(string profileId)
 	{
@@ -29,12 +34,22 @@ public class UserController : ControllerBase
 		return await GetUser(steamId);
 	}
 
+	/// <summary>
+	/// Obtains an User given his SteamID
+	/// </summary>
+	/// <param name="steamId">The SteamID of the User</param>
+	/// <returns>An User</returns>
 	[HttpGet("profiles/{steamId}")]
 	public async Task<ActionResult<User>> GetUserBySteamId(string steamId)
 	{
 		return await GetUser(steamId);
 	}
 
+	/// <summary>
+	/// Obtains an User given his SteamID
+	/// </summary>
+	/// <param name="steamId">The SteamID of the User</param>
+	/// <returns>An User</returns>
 	private async Task<ActionResult<User>> GetUser(string steamId)
 	{
 		var profileInfo = await _steamService.GetProfileInfo(steamId);

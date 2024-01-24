@@ -16,6 +16,11 @@ public class DiscordService
 		_httpClientFactory = httpClientFactory;
 	}
 
+	/// <summary>
+	/// Logs the User's Stats into a Discord Channel
+	/// </summary>
+	/// <param name="user">The User whose data is going to be logged</param>
+	/// <returns></returns>
 	public async Task LogUser(User user)
 	{
 		var client = _httpClientFactory.CreateClient("DiscordClient");
@@ -76,6 +81,7 @@ public class DiscordService
 
 		var response = await client.PostAsync(_configuration["DiscordLogUserWebhook"], content);
 
+		// TODO:
 		if (!response.IsSuccessStatusCode)
 			throw new Exception("Unknown Error");
 	}
