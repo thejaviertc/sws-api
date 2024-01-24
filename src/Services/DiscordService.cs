@@ -56,7 +56,7 @@ public class DiscordService
 
 		var response = await client.PostAsync(_configuration["DiscordLogQueryWebhook"], content);
 
-		// TODO:
+		// TODO: 
 		if (!response.IsSuccessStatusCode)
 			throw new Exception("Unknown Error");
 	}
