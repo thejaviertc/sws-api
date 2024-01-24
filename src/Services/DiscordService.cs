@@ -15,7 +15,7 @@ public class DiscordService
 		_httpClientFactory = httpClientFactory;
 	}
 
-	public async void LogUser(User user)
+	public async Task LogUser(User user)
 	{
 		var client = _httpClientFactory.CreateClient("DiscordClient");
 
