@@ -5,9 +5,9 @@ namespace SteamWorkshopStats.Services;
 
 public interface ISteamService
 {
-    Task<List<Addon>> GetAddons(string steamId);
+	Task<List<Addon>> GetAddons(string steamId);
 
-    Task<GetPlayerSummariesPlayer> GetProfileInfo(string steamId);
+	Task<GetPlayerSummariesPlayer> GetProfileInfo(string steamId);
 
-    Task<string> GetSteamId(string profileId);
+	Task<string> GetSteamId(string profileId);
 }
