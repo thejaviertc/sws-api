@@ -1,0 +1,8 @@
+version: 2
+updates:
+  - package-ecosystem: "nuget" # See documentation for possible values
+    directory: "/"
+    schedule:
+        interval: "daily"
+    open-pull-requests-limit: 30
+    target-branch: "main"
