@@ -8,8 +8,9 @@ namespace SteamWorkshopStats.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-	private ISteamService _steamService;
-	private DiscordService _discordService;
+	private readonly ISteamService _steamService;
+
+	private readonly DiscordService _discordService;
 
 	public UserController(ISteamService steamService, DiscordService discordService)
 	{

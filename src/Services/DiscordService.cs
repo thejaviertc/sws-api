@@ -7,6 +7,7 @@ namespace SteamWorkshopStats.Services;
 public class DiscordService
 {
 	private readonly IConfiguration _configuration;
+
 	private readonly IHttpClientFactory _httpClientFactory;
 
 	public DiscordService(IConfiguration configuration, IHttpClientFactory httpClientFactory)

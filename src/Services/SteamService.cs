@@ -6,6 +6,7 @@ namespace SteamWorkshopStats.Services;
 public class SteamService : ISteamService
 {
 	private readonly IConfiguration _configuration;
+
 	private readonly IHttpClientFactory _httpClientFactory;
 
 	public SteamService(IConfiguration configuration, IHttpClientFactory httpClientFactory)
