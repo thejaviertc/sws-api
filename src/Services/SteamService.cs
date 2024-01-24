@@ -35,11 +35,11 @@ public class SteamService : ISteamService
             if (responseData.Response.Success == 1)
                 return responseData.Response.SteamId;
 
-            // TODO: 
+            // TODO:
             return null;
         }
 
-        // TODO: 
+        // TODO:
         throw new Exception("Unknown Error");
     }
 
@@ -64,11 +64,11 @@ public class SteamService : ISteamService
             if (responseData.Response.Players.Count > 0)
                 return responseData.Response.Players[0];
 
-            // TODO: 
+            // TODO:
             return null;
         }
 
-        // TODO: 
+        // TODO:
         throw new Exception("Unknown Error");
     }
 
@@ -95,18 +95,23 @@ public class SteamService : ISteamService
             {
                 foreach (var addon in responseData.Response.PublishedFiles)
                 {
-                    addons.Add(new Addon
-                    {
-                        Id = addon.Id,
-                        Title = addon.Title,
-                        ImageUrl = addon.ImageUrl,
-                        Views = addon.Views,
-                        Suscribers = addon.Subscribers,
-                        Favorites = addon.Favorites,
-                        Likes = addon.Votes.Likes,
-                        Dislikes = addon.Votes.Dislikes,
-                        Stars = Addon.GetStars(addon.Votes.Likes + addon.Votes.Dislikes, addon.Votes.Score)
-                    });
+                    addons.Add(
+                        new Addon
+                        {
+                            Id = addon.Id,
+                            Title = addon.Title,
+                            ImageUrl = addon.ImageUrl,
+                            Views = addon.Views,
+                            Suscribers = addon.Subscribers,
+                            Favorites = addon.Favorites,
+                            Likes = addon.Votes.Likes,
+                            Dislikes = addon.Votes.Dislikes,
+                            Stars = Addon.GetStars(
+                                addon.Votes.Likes + addon.Votes.Dislikes,
+                                addon.Votes.Score
+                            )
+                        }
+                    );
                 }
 
                 addons.Sort();
@@ -115,7 +120,7 @@ public class SteamService : ISteamService
             return addons;
         }
 
-        // TODO: 
+        // TODO:
         throw new Exception("Unknown Error");
     }
 }

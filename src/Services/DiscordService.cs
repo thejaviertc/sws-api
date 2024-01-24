@@ -1,6 +1,6 @@
-﻿using SteamWorkshopStats.Models;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
+using SteamWorkshopStats.Models;
 
 namespace SteamWorkshopStats.Services;
 
@@ -28,7 +28,7 @@ public class DiscordService
                     title = $"{user.Username} ({user.SteamId})",
                     color = 5814783,
                     type = "rich",
-                    fields = new []
+                    fields = new[]
                     {
                         new
                         {
@@ -61,20 +61,19 @@ public class DiscordService
                             inline = true
                         }
                     },
-                    thumbnail = new
-                    {
-                        url = user.ProfileImageUrl
-                    },
+                    thumbnail = new { url = user.ProfileImageUrl },
                     timestamp = DateTime.UtcNow
                 }
             }
         };
 
-        var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-
-        var response = await client.PostAsync(
-            _configuration["DiscordLogUserWebhook"], content
+        var content = new StringContent(
+            JsonSerializer.Serialize(payload),
+            Encoding.UTF8,
+            "application/json"
         );
+
+        var response = await client.PostAsync(_configuration["DiscordLogUserWebhook"], content);
 
         if (!response.IsSuccessStatusCode)
             throw new Exception("Unknown Error");
