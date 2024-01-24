@@ -17,6 +17,51 @@ public class DiscordService
 	}
 
 	/// <summary>
+	/// Logs the ProfileID / SteamID when a query starts
+	/// </summary>
+	/// <param name="value">ProfileID / SteamID inside the query</param>
+	/// <returns></returns>
+	public async Task LogQuery(string value)
+	{
+		var client = _httpClientFactory.CreateClient("DiscordClient");
+
+		var payload = new
+		{
+			embeds = new[]
+			{
+				new
+				{
+					title = "New Query",
+					color = 5814783,
+					type = "rich",
+					fields = new[]
+					{
+						new
+						{
+							name = "ProfileID / SteamID",
+							value = value,
+							inline = true
+						},
+					},
+					timestamp = DateTime.UtcNow
+				}
+			}
+		};
+
+		var content = new StringContent(
+			JsonSerializer.Serialize(payload),
+			Encoding.UTF8,
+			"application/json"
+		);
+
+		var response = await client.PostAsync(_configuration["DiscordLogQueryWebhook"], content);
+
+		// TODO:
+		if (!response.IsSuccessStatusCode)
+			throw new Exception("Unknown Error");
+	}
+
+	/// <summary>
 	/// Logs the User's Stats into a Discord Channel
 	/// </summary>
 	/// <param name="user">The User whose data is going to be logged</param>

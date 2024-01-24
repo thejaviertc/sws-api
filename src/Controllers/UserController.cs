@@ -26,6 +26,8 @@ public class UserController : ControllerBase
 	[HttpGet("id/{profileId}")]
 	public async Task<ActionResult<User>> GetUserByProfileId(string profileId)
 	{
+		_discordService.LogQuery(profileId);
+
 		string steamId = await _steamService.GetSteamId(profileId);
 
 		if (steamId is null)
@@ -42,6 +44,8 @@ public class UserController : ControllerBase
 	[HttpGet("profiles/{steamId}")]
 	public async Task<ActionResult<User>> GetUserBySteamId(string steamId)
 	{
+		_discordService.LogQuery(steamId);
+
 		return await GetUser(steamId);
 	}
 
