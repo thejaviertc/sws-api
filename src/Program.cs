@@ -35,6 +35,11 @@ builder.Services.AddSingleton<DiscordService>();
 var app = builder.Build();
 
 // Middlewares
+if (app.Environment.IsDevelopment())
+	app.UseDeveloperExceptionPage();
+else
+	app.UseHsts();
+
 app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthorization();
