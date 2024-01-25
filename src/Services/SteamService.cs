@@ -92,7 +92,7 @@ public class SteamService : ISteamService
 
 			List<Addon> addons = new List<Addon>();
 
-			if (responseData.Response.PublishedFiles.Count > 0)
+			if (responseData.Response.PublishedFiles?.Count > 0)
 			{
 				foreach (var addon in responseData.Response.PublishedFiles)
 				{
