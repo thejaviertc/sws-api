@@ -3,6 +3,14 @@ using SteamWorkshopStats.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Services
+builder.Services.AddCors(options =>
+{
+	options.AddDefaultPolicy(policy =>
+	{
+		policy.WithOrigins("https://thejaviertc.github.io").AllowAnyMethod().AllowAnyHeader();
+	});
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddHttpClient(
@@ -28,6 +36,7 @@ var app = builder.Build();
 
 // Middlewares
 app.UseHttpsRedirection();
+app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();
