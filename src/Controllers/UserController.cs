@@ -10,9 +10,9 @@ public class UserController : ControllerBase
 {
 	private readonly ISteamService _steamService;
 
-	private readonly DiscordService _discordService;
+	private readonly IDiscordService _discordService;
 
-	public UserController(ISteamService steamService, DiscordService discordService)
+	public UserController(ISteamService steamService, IDiscordService discordService)
 	{
 		_steamService = steamService;
 		_discordService = discordService;

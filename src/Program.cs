@@ -30,7 +30,7 @@ builder.Services.AddHttpClient(
 );
 
 builder.Services.AddSingleton<ISteamService, SteamService>();
-builder.Services.AddSingleton<DiscordService>();
+builder.Services.AddSingleton<IDiscordService, DiscordService>();
 
 var app = builder.Build();
 
