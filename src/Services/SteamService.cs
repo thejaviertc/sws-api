@@ -110,7 +110,7 @@ public class SteamService : ISteamService
 							Favorites = addon.Favorites,
 							Likes = likes,
 							Dislikes = dislikes,
-							Stars = Addon.GetStars(likes + dislikes, addon.Votes.Score)
+							Stars = Addon.GetNumberOfStars(likes + dislikes, addon.Votes.Score)
 						}
 					);
 				}

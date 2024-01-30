@@ -20,7 +20,7 @@ public struct Addon : IComparable<Addon>, IEquatable<Addon>
 
 	public int Stars { get; init; }
 
-	public static int GetStars(int votes, float score)
+	public static int GetNumberOfStars(int votes, float score)
 	{
 		return votes >= 25 ? (int)Math.Ceiling(score * 5) : 0;
 	}

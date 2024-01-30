@@ -13,6 +13,6 @@ public class AddonTest
 	[InlineData(25, 0.9, 5)]
 	public void GetStars_ReturnsValid(int votes, float score, int expected)
 	{
-		Assert.Equal(expected, Addon.GetStars(votes, score));
+		Assert.Equal(expected, Addon.GetNumberOfStars(votes, score));
 	}
 }
