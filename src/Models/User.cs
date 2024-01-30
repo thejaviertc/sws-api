@@ -1,6 +1,6 @@
 ﻿namespace SteamWorkshopStats.Models;
 
-public struct User
+public struct User : IEquatable<User>
 {
 	public string SteamId { get; init; }
 
@@ -19,4 +19,9 @@ public struct User
 	public int Dislikes { get; init; }
 
 	public List<Addon> Addons { get; init; }
+
+	public bool Equals(User other)
+	{
+		return SteamId == other.SteamId;
+	}
 }
