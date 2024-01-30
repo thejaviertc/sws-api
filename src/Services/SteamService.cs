@@ -63,7 +63,7 @@ public class SteamService : ISteamService
 			var responseData = await response.Content.ReadFromJsonAsync<GetPlayerSummaries>();
 
 			if (responseData.Response.Players.Count > 0)
-				return responseData.Response.Players[0];
+				return responseData.Response.Players.ElementAt(0);
 
 			// TODO:
 			return null;
