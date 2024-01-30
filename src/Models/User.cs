@@ -18,7 +18,7 @@ public struct User : IEquatable<User>
 
 	public int Dislikes { get; init; }
 
-	public List<Addon> Addons { get; init; }
+	public ICollection<Addon> Addons { get; init; }
 
 	public bool Equals(User other)
 	{
