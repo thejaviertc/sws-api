@@ -21,7 +21,7 @@ public class SteamService : ISteamService
 	/// <param name="profileId">The ProfileID from the URL of the User's profile</param>
 	/// <returns>The SteamID of the User</returns>
 	/// <exception cref="Exception"></exception>
-	public async Task<string> GetSteamId(string profileId)
+	public async Task<string?> GetSteamId(string profileId)
 	{
 		var client = _httpClientFactory.CreateClient("SteamClient");
 
@@ -33,10 +33,10 @@ public class SteamService : ISteamService
 		{
 			var responseData = await response.Content.ReadFromJsonAsync<ResolveVanityUrl>();
 
-			if (responseData.Response.Success == 1)
-				return responseData.Response.SteamId;
+			if (responseData?.Response.Success == 1)
+				return responseData.Response.SteamId!;
 
-			// TODO:
+			// TODO: Check if there is a better way
 			return null;
 		}
 
@@ -50,7 +50,7 @@ public class SteamService : ISteamService
 	/// <param name="steamId">The SteamID of the User</param>
 	/// <returns>The User's profile information, including the username and the profile image URL.</returns>
 	/// <exception cref="Exception"></exception>
-	public async Task<GetPlayerSummariesPlayer> GetProfileInfo(string steamId)
+	public async Task<GetPlayerSummariesPlayer?> GetProfileInfo(string steamId)
 	{
 		var client = _httpClientFactory.CreateClient("SteamClient");
 
@@ -62,10 +62,10 @@ public class SteamService : ISteamService
 		{
 			var responseData = await response.Content.ReadFromJsonAsync<GetPlayerSummaries>();
 
-			if (responseData.Response.Players.Count > 0)
+			if (responseData?.Response.Players.Count > 0)
 				return responseData.Response.Players.ElementAt(0);
 
-			// TODO:
+			// TODO: Check if there is a better way
 			return null;
 		}
 
@@ -92,7 +92,7 @@ public class SteamService : ISteamService
 
 			List<Addon> addons = new List<Addon>();
 
-			if (responseData.Response.PublishedFiles?.Count > 0)
+			if (responseData?.Response.PublishedFiles?.Count > 0)
 			{
 				foreach (var addon in responseData.Response.PublishedFiles)
 				{
