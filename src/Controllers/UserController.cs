@@ -26,14 +26,14 @@ public class UserController : ControllerBase
 	[HttpGet("id/{profileId}")]
 	public async Task<ActionResult<User>> GetUserByProfileId(string profileId)
 	{
-		_discordService.LogQueryAsync(profileId);
+		_ = _discordService.LogQueryAsync(profileId);
 
-		string steamId = await _steamService.GetSteamIdAsync(profileId);
+		string? steamId = await _steamService.GetSteamIdAsync(profileId);
 
 		if (steamId is null)
 			return NotFound();
 
-		return await GetUser(steamId);
+		return await GetUserAsync(steamId);
 	}
 
 	/// <summary>
@@ -44,9 +44,9 @@ public class UserController : ControllerBase
 	[HttpGet("profiles/{steamId}")]
 	public async Task<ActionResult<User>> GetUserBySteamId(string steamId)
 	{
-		_discordService.LogQueryAsync(steamId);
+		_ = _discordService.LogQueryAsync(steamId);
 
-		return await GetUser(steamId);
+		return await GetUserAsync(steamId);
 	}
 
 	/// <summary>
@@ -54,7 +54,7 @@ public class UserController : ControllerBase
 	/// </summary>
 	/// <param name="steamId">The SteamID of the User</param>
 	/// <returns>An User</returns>
-	private async Task<ActionResult<User>> GetUser(string steamId)
+	private async Task<ActionResult<User>> GetUserAsync(string steamId)
 	{
 		var profileInfo = await _steamService.GetProfileInfoAsync(steamId);
 
@@ -76,7 +76,7 @@ public class UserController : ControllerBase
 			Addons = addons
 		};
 
-		_discordService.LogUserAsync(user);
+		_ = _discordService.LogUserAsync(user);
 
 		return user;
 	}
