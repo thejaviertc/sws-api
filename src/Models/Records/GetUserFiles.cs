@@ -5,7 +5,7 @@ namespace SteamWorkshopStats.Models.Records;
 public record class GetUserFiles
 {
 	[JsonPropertyName("response")]
-	public GetUserFilesResponse Response { get; init; }
+	public required GetUserFilesResponse Response { get; init; }
 }
 
 public record class GetUserFilesResponse
@@ -17,35 +17,35 @@ public record class GetUserFilesResponse
 public record class PublishedFile
 {
 	[JsonPropertyName("publishedfileid")]
-	public long Id { get; init; }
+	public required long Id { get; init; }
 
 	[JsonPropertyName("title")]
-	public string Title { get; init; }
+	public required string Title { get; init; }
 
 	[JsonPropertyName("preview_url")]
-	public Uri ImageUrl { get; init; }
+	public required Uri ImageUrl { get; init; }
 
 	[JsonPropertyName("views")]
-	public int Views { get; init; }
+	public required int Views { get; init; }
 
 	[JsonPropertyName("subscriptions")]
-	public int Subscribers { get; init; }
+	public required int Subscribers { get; init; }
 
 	[JsonPropertyName("favorited")]
-	public int Favorites { get; init; }
+	public required int Favorites { get; init; }
 
 	[JsonPropertyName("vote_data")]
-	public VoteData Votes { get; init; }
+	public required VoteData Votes { get; init; }
 }
 
 public record class VoteData
 {
 	[JsonPropertyName("score")]
-	public float Score { get; init; }
+	public required float Score { get; init; }
 
 	[JsonPropertyName("votes_up")]
-	public int Likes { get; init; }
+	public int? Likes { get; init; }
 
 	[JsonPropertyName("votes_down")]
-	public int Dislikes { get; init; }
+	public int? Dislikes { get; init; }
 }
