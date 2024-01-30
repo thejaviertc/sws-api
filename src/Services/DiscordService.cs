@@ -21,7 +21,7 @@ public class DiscordService : IDiscordService
 	/// </summary>
 	/// <param name="value">ProfileID / SteamID inside the query</param>
 	/// <returns></returns>
-	public async Task LogQuery(string value)
+	public async Task LogQueryAsync(string value)
 	{
 		var client = _httpClientFactory.CreateClient("DiscordClient");
 
@@ -66,7 +66,7 @@ public class DiscordService : IDiscordService
 	/// </summary>
 	/// <param name="user">The User whose data is going to be logged</param>
 	/// <returns></returns>
-	public async Task LogUser(User user)
+	public async Task LogUserAsync(User user)
 	{
 		var client = _httpClientFactory.CreateClient("DiscordClient");
 

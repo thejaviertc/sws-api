@@ -4,7 +4,7 @@ namespace SteamWorkshopStats.Services;
 
 public interface IDiscordService
 {
-	Task LogQuery(string value);
+	Task LogQueryAsync(string value);
 
-	Task LogUser(User user);
+	Task LogUserAsync(User user);
 }

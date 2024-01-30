@@ -21,7 +21,7 @@ public class SteamService : ISteamService
 	/// <param name="profileId">The ProfileID from the URL of the User's profile</param>
 	/// <returns>The SteamID of the User</returns>
 	/// <exception cref="Exception"></exception>
-	public async Task<string?> GetSteamId(string profileId)
+	public async Task<string?> GetSteamIdAsync(string profileId)
 	{
 		var client = _httpClientFactory.CreateClient("SteamClient");
 
@@ -50,7 +50,7 @@ public class SteamService : ISteamService
 	/// <param name="steamId">The SteamID of the User</param>
 	/// <returns>The User's profile information, including the username and the profile image URL.</returns>
 	/// <exception cref="Exception"></exception>
-	public async Task<GetPlayerSummariesPlayer?> GetProfileInfo(string steamId)
+	public async Task<GetPlayerSummariesPlayer?> GetProfileInfoAsync(string steamId)
 	{
 		var client = _httpClientFactory.CreateClient("SteamClient");
 
@@ -78,7 +78,7 @@ public class SteamService : ISteamService
 	/// </summary>
 	/// <param name="steamId">The SteamID of the User.</param>
 	/// <returns>A list of Addons sorted from newest to oldest.</returns>
-	public async Task<List<Addon>> GetAddons(string steamId)
+	public async Task<List<Addon>> GetAddonsAsync(string steamId)
 	{
 		var client = _httpClientFactory.CreateClient("SteamClient");
 
