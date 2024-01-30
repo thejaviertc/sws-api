@@ -11,7 +11,7 @@ public record class GetPlayerSummaries
 public record class GetPlayerSummariesResponse
 {
 	[JsonPropertyName("players")]
-	public required IEnumerable<GetPlayerSummariesPlayer> Players { get; init; }
+	public required ICollection<GetPlayerSummariesPlayer> Players { get; init; }
 }
 
 public record class GetPlayerSummariesPlayer

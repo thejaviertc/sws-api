@@ -11,7 +11,7 @@ public record class GetUserFiles
 public record class GetUserFilesResponse
 {
 	[JsonPropertyName("publishedfiledetails")]
-	public IEnumerable<PublishedFile>? PublishedFiles { get; init; }
+	public ICollection<PublishedFile>? PublishedFiles { get; init; }
 }
 
 public record class PublishedFile
