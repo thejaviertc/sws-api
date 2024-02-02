@@ -1,5 +1,6 @@
 using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.RateLimiting;
+using SteamWorkshopStats.Middlewares;
 using SteamWorkshopStats.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,7 +54,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 	app.UseDeveloperExceptionPage();
 else
+{
 	app.UseHsts();
+	app.UseMiddleware<QueryLoggerMiddleware>();
+}
 
 app.UseHttpsRedirection();
 app.UseCors();

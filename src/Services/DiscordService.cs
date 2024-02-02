@@ -17,11 +17,12 @@ public class DiscordService : IDiscordService
 	}
 
 	/// <summary>
-	/// Logs the ProfileID / SteamID when a query starts
+	/// Logs the path and the IP of the User into a Discord Channel
 	/// </summary>
-	/// <param name="value">ProfileID / SteamID inside the query</param>
+	/// <param name="path">Path where the User made a query</param>
+	/// <param name="ip">IP of the User</param>
 	/// <returns></returns>
-	public async Task LogQueryAsync(string value)
+	public async Task LogQueryAsync(string path, string ip)
 	{
 		var client = _httpClientFactory.CreateClient("DiscordClient");
 
@@ -38,8 +39,14 @@ public class DiscordService : IDiscordService
 					{
 						new
 						{
-							name = "ProfileID / SteamID",
-							value = value,
+							name = "Path",
+							value = path,
+							inline = false
+						},
+						new
+						{
+							name = "IP",
+							value = ip,
 							inline = true
 						},
 					},
@@ -48,11 +55,7 @@ public class DiscordService : IDiscordService
 			}
 		};
 
-		var content = new StringContent(
-			JsonSerializer.Serialize(payload),
-			Encoding.UTF8,
-			"application/json"
-		);
+		var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
 
 		var response = await client.PostAsync(_configuration["DiscordLogQueryWebhook"], content);
 
@@ -118,11 +121,7 @@ public class DiscordService : IDiscordService
 			}
 		};
 
-		var content = new StringContent(
-			JsonSerializer.Serialize(payload),
-			Encoding.UTF8,
-			"application/json"
-		);
+		var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
 
 		var response = await client.PostAsync(_configuration["DiscordLogUserWebhook"], content);
 
