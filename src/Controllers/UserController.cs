@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using SteamWorkshopStats.Models;
 using SteamWorkshopStats.Services;
 
@@ -6,6 +7,7 @@ namespace SteamWorkshopStats.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[EnableRateLimiting("fixed")]
 public class UserController : ControllerBase
 {
 	private readonly ISteamService _steamService;

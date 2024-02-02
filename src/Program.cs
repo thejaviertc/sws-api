@@ -1,8 +1,23 @@
+using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.RateLimiting;
 using SteamWorkshopStats.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Services
+builder.Services.AddRateLimiter(rateLimiterOptions =>
+	rateLimiterOptions.AddFixedWindowLimiter(
+		policyName: "fixed",
+		options =>
+		{
+			options.PermitLimit = 50;
+			options.Window = TimeSpan.FromMinutes(20);
+			options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+			options.QueueLimit = 5;
+		}
+	)
+);
+
 builder.Services.AddCors(options =>
 {
 	options.AddDefaultPolicy(policy =>
@@ -43,6 +58,7 @@ else
 app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthorization();
+app.UseRateLimiter();
 
 app.MapControllers();
 
