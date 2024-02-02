@@ -10,12 +10,15 @@ namespace SteamWorkshopStats.Controllers;
 [EnableRateLimiting("fixed")]
 public class UserController : ControllerBase
 {
+	private readonly IWebHostEnvironment _env;
+
 	private readonly ISteamService _steamService;
 
 	private readonly IDiscordService _discordService;
 
-	public UserController(ISteamService steamService, IDiscordService discordService)
+	public UserController(IWebHostEnvironment env, ISteamService steamService, IDiscordService discordService)
 	{
+		_env = env;
 		_steamService = steamService;
 		_discordService = discordService;
 	}
@@ -78,7 +81,10 @@ public class UserController : ControllerBase
 			Addons = addons
 		};
 
-		_ = _discordService.LogUserAsync(user);
+		if (_env.IsProduction())
+		{
+			_ = _discordService.LogUserAsync(user);
+		}
 
 		return user;
 	}
