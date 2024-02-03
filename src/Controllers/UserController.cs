@@ -34,7 +34,7 @@ public class UserController : ControllerBase
 		string? steamId = await _steamService.GetSteamIdAsync(profileId);
 
 		if (steamId is null)
-			return NotFound();
+			return NotFound(new { Message = "This User doesn't exists (SteamID not found)" });
 
 		return await GetUserAsync(steamId);
 	}
@@ -60,7 +60,7 @@ public class UserController : ControllerBase
 		var profileInfo = await _steamService.GetProfileInfoAsync(steamId);
 
 		if (profileInfo is null)
-			return NotFound();
+			return NotFound(new { Message = "This User doesn't exists (Profile info not found)" });
 
 		var addons = await _steamService.GetAddonsAsync(steamId);
 

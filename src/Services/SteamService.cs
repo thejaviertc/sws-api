@@ -29,19 +29,15 @@ public class SteamService : ISteamService
 			$"ISteamUser/ResolveVanityURL/v1/?key={_configuration["SteamApiKey"]}&vanityurl={profileId}"
 		);
 
-		if (response.IsSuccessStatusCode)
-		{
-			var responseData = await response.Content.ReadFromJsonAsync<ResolveVanityUrl>();
-
-			if (responseData?.Response.Success == 1)
-				return responseData.Response.SteamId!;
-
-			// TODO: Check if there is a better way
+		if (!response.IsSuccessStatusCode)
 			return null;
-		}
 
-		// TODO:
-		throw new Exception("Unknown Error");
+		var responseData = await response.Content.ReadFromJsonAsync<ResolveVanityUrl>();
+
+		if (responseData is null || responseData.Response.Success != 1)
+			return null;
+
+		return responseData.Response.SteamId;
 	}
 
 	/// <summary>
@@ -58,19 +54,15 @@ public class SteamService : ISteamService
 			$"ISteamUser/GetPlayerSummaries/v2/?key={_configuration["SteamApiKey"]}&steamids={steamId}"
 		);
 
-		if (response.IsSuccessStatusCode)
-		{
-			var responseData = await response.Content.ReadFromJsonAsync<GetPlayerSummaries>();
-
-			if (responseData?.Response.Players.Count > 0)
-				return responseData.Response.Players.ElementAt(0);
-
-			// TODO: Check if there is a better way
+		if (!response.IsSuccessStatusCode)
 			return null;
-		}
 
-		// TODO:
-		throw new Exception("Unknown Error");
+		var responseData = await response.Content.ReadFromJsonAsync<GetPlayerSummaries>();
+
+		if (responseData is null || responseData.Response.Players.Count == 0)
+			return null;
+
+		return responseData.Response.Players.ElementAt(0);
 	}
 
 	/// <summary>
@@ -86,42 +78,39 @@ public class SteamService : ISteamService
 			$"IPublishedFileService/GetUserFiles/v1/?key={_configuration["SteamApiKey"]}&steamid={steamId}&numperpage=500&return_vote_data=true"
 		);
 
-		if (response.IsSuccessStatusCode)
+		if (!response.IsSuccessStatusCode)
+			return new List<Addon>();
+
+		var responseData = await response.Content.ReadFromJsonAsync<GetUserFiles>();
+
+		if (responseData is null || responseData.Response.PublishedFiles is null)
+			return new List<Addon>();
+
+		List<Addon> addons = new List<Addon>();
+
+		foreach (var addon in responseData.Response.PublishedFiles)
 		{
-			var responseData = await response.Content.ReadFromJsonAsync<GetUserFiles>();
+			int likes = addon.Votes.Likes ?? 0;
+			int dislikes = addon.Votes.Dislikes ?? 0;
 
-			List<Addon> addons = new List<Addon>();
-
-			if (responseData?.Response.PublishedFiles?.Count > 0)
-			{
-				foreach (var addon in responseData.Response.PublishedFiles)
+			addons.Add(
+				new Addon
 				{
-					int likes = addon.Votes.Likes ?? 0;
-					int dislikes = addon.Votes.Dislikes ?? 0;
-
-					addons.Add(
-						new Addon
-						{
-							Id = addon.Id,
-							Title = addon.Title,
-							ImageUrl = addon.ImageUrl,
-							Views = addon.Views,
-							Suscribers = addon.Subscribers,
-							Favorites = addon.Favorites,
-							Likes = likes,
-							Dislikes = dislikes,
-							Stars = Addon.GetNumberOfStars(likes + dislikes, addon.Votes.Score)
-						}
-					);
+					Id = addon.Id,
+					Title = addon.Title,
+					ImageUrl = addon.ImageUrl,
+					Views = addon.Views,
+					Suscribers = addon.Subscribers,
+					Favorites = addon.Favorites,
+					Likes = likes,
+					Dislikes = dislikes,
+					Stars = Addon.GetNumberOfStars(likes + dislikes, addon.Votes.Score)
 				}
-
-				addons.Sort();
-			}
-
-			return addons;
+			);
 		}
 
-		// TODO:
-		throw new Exception("Unknown Error");
+		addons.Sort();
+
+		return addons;
 	}
 }
