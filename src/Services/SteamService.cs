@@ -1,4 +1,5 @@
-﻿using SteamWorkshopStats.Models;
+﻿using SteamWorkshopStats.Exceptions;
+using SteamWorkshopStats.Models;
 using SteamWorkshopStats.Models.Records;
 
 namespace SteamWorkshopStats.Services;
@@ -20,7 +21,7 @@ public class SteamService : ISteamService
 	/// </summary>
 	/// <param name="profileId">The ProfileID from the URL of the User's profile</param>
 	/// <returns>The SteamID of the User</returns>
-	/// <exception cref="Exception"></exception>
+	/// <exception cref="SteamServiceException"></exception>
 	public async Task<string?> GetSteamIdAsync(string profileId)
 	{
 		var client = _httpClientFactory.CreateClient("SteamClient");
@@ -30,7 +31,7 @@ public class SteamService : ISteamService
 		);
 
 		if (!response.IsSuccessStatusCode)
-			return null;
+			throw new SteamServiceException("Steam API failed to fetch SteamID");
 
 		var responseData = await response.Content.ReadFromJsonAsync<ResolveVanityUrl>();
 
@@ -45,7 +46,7 @@ public class SteamService : ISteamService
 	/// </summary>
 	/// <param name="steamId">The SteamID of the User</param>
 	/// <returns>The User's profile information, including the username and the profile image URL.</returns>
-	/// <exception cref="Exception"></exception>
+	/// <exception cref="SteamServiceException"></exception>
 	public async Task<GetPlayerSummariesPlayer?> GetProfileInfoAsync(string steamId)
 	{
 		var client = _httpClientFactory.CreateClient("SteamClient");
@@ -55,7 +56,7 @@ public class SteamService : ISteamService
 		);
 
 		if (!response.IsSuccessStatusCode)
-			return null;
+			throw new SteamServiceException("Steam API failed to fetch Profile Info");
 
 		var responseData = await response.Content.ReadFromJsonAsync<GetPlayerSummaries>();
 
@@ -70,6 +71,7 @@ public class SteamService : ISteamService
 	/// </summary>
 	/// <param name="steamId">The SteamID of the User.</param>
 	/// <returns>A list of Addons sorted from newest to oldest.</returns>
+	/// <exception cref="SteamServiceException"></exception>
 	public async Task<List<Addon>> GetAddonsAsync(string steamId)
 	{
 		var client = _httpClientFactory.CreateClient("SteamClient");
@@ -79,7 +81,7 @@ public class SteamService : ISteamService
 		);
 
 		if (!response.IsSuccessStatusCode)
-			return new List<Addon>();
+			throw new SteamServiceException("Steam API failed to fetch Addons");
 
 		var responseData = await response.Content.ReadFromJsonAsync<GetUserFiles>();
 

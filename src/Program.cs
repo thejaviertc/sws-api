@@ -59,6 +59,8 @@ else
 	app.UseMiddleware<QueryLoggerMiddleware>();
 }
 
+app.UseMiddleware<ErrorLoggerMiddleware>();
+
 app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthorization();

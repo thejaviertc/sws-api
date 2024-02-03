@@ -129,4 +129,52 @@ public class DiscordService : IDiscordService
 		if (!response.IsSuccessStatusCode)
 			throw new Exception("Unknown Error");
 	}
+
+	public async Task LogErrorAsync(string path, string ip, string message)
+	{
+		var client = _httpClientFactory.CreateClient("DiscordClient");
+
+		var payload = new
+		{
+			embeds = new[]
+			{
+				new
+				{
+					title = "Error",
+					color = 5814783,
+					type = "rich",
+					fields = new[]
+					{
+						new
+						{
+							name = "Path",
+							value = path,
+							inline = true
+						},
+						new
+						{
+							name = "IP",
+							value = ip,
+							inline = true
+						},
+						new
+						{
+							name = "Error Message",
+							value = message,
+							inline = false
+						},
+					},
+					timestamp = DateTime.UtcNow
+				}
+			}
+		};
+
+		var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+
+		var response = await client.PostAsync(_configuration["DiscordLogErrorWebhook"], content);
+
+		// TODO:
+		if (!response.IsSuccessStatusCode)
+			throw new Exception("Unknown Error");
+	}
 }
