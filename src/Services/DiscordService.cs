@@ -59,9 +59,8 @@ public class DiscordService : IDiscordService
 
 		var response = await client.PostAsync(_configuration["DiscordLogQueryWebhook"], content);
 
-		// TODO:
 		if (!response.IsSuccessStatusCode)
-			throw new Exception("Unknown Error");
+			_ = LogErrorAsync(path, ip, "Discord Service LogQueryAsync failed");
 	}
 
 	/// <summary>
@@ -125,9 +124,8 @@ public class DiscordService : IDiscordService
 
 		var response = await client.PostAsync(_configuration["DiscordLogUserWebhook"], content);
 
-		// TODO:
 		if (!response.IsSuccessStatusCode)
-			throw new Exception("Unknown Error");
+			_ = LogErrorAsync("Unknown", "Unknown", "Discord Service LogUserAsync failed");
 	}
 
 	public async Task LogErrorAsync(string path, string ip, string message)
@@ -173,8 +171,7 @@ public class DiscordService : IDiscordService
 
 		var response = await client.PostAsync(_configuration["DiscordLogErrorWebhook"], content);
 
-		// TODO:
 		if (!response.IsSuccessStatusCode)
-			throw new Exception("Unknown Error");
+			throw new Exception("Discord Service LogErrorAsync failed");
 	}
 }
