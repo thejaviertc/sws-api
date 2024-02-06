@@ -70,7 +70,7 @@ public class UserController : ControllerBase
 			Username = profileInfo.Username,
 			ProfileImageUrl = profileInfo.ProfileImageUrl,
 			Views = addons.Sum(addon => addon.Views),
-			Suscribers = addons.Sum(addon => addon.Suscribers),
+			Subscribers = addons.Sum(addon => addon.Subscribers),
 			Favorites = addons.Sum(addon => addon.Favorites),
 			Likes = addons.Sum(addon => addon.Likes),
 			Dislikes = addons.Sum(addon => addon.Dislikes),

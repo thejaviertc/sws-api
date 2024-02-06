@@ -10,7 +10,7 @@ public struct User : IEquatable<User>
 
 	public int Views { get; init; }
 
-	public int Suscribers { get; init; }
+	public int Subscribers { get; init; }
 
 	public int Favorites { get; init; }
 

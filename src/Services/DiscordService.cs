@@ -91,8 +91,8 @@ public class DiscordService : IDiscordService
 						},
 						new
 						{
-							name = "Suscribers",
-							value = user.Suscribers,
+							name = "Subscribers",
+							value = user.Subscribers,
 							inline = true
 						},
 						new

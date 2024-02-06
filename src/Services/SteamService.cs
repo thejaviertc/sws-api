@@ -102,7 +102,7 @@ public class SteamService : ISteamService
 					Title = addon.Title,
 					ImageUrl = addon.ImageUrl,
 					Views = addon.Views,
-					Suscribers = addon.Subscribers,
+					Subscribers = addon.Subscribers,
 					Favorites = addon.Favorites,
 					Likes = likes,
 					Dislikes = dislikes,
