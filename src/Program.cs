@@ -55,13 +55,13 @@ if (app.Environment.IsDevelopment())
 	app.UseDeveloperExceptionPage();
 else
 {
+	app.UseHttpsRedirection();
 	app.UseHsts();
 	app.UseMiddleware<QueryLoggerMiddleware>();
 }
 
 app.UseMiddleware<ErrorLoggerMiddleware>();
 
-app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthorization();
 app.UseRateLimiter();
