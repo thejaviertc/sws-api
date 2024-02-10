@@ -13,6 +13,26 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 📘 Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.x.x
+
+      - name: 🔄 Restore dependencies
+        run: dotnet restore
+
+      - name: 🔨 Build Project
+        run: dotnet build --no-restore
+
+      - name: 🧪 Test Project
+        run: dotnet test --no-build --verbosity normal
+
+      - name: 🔎 SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
       - name: 🔨 Buildx
         id: buildx
         uses: docker/setup-buildx-action@v3
