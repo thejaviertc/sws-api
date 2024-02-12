@@ -7,7 +7,7 @@
     <img src="https://img.shields.io/github/v/release/thejaviertc/sws-api" />
     <img src="https://img.shields.io/github/license/thejaviertc/sws-api" />
     <img src="https://img.shields.io/github/commit-activity/m/thejaviertc/sws-api" />
-    <img src="https://github.com/thejaviertc/sws-api/actions/workflows/ci.yml/badge.svg" />
+    <img src="https://github.com/thejaviertc/sws-api/actions/workflows/ci.yml/badge.svg?branch=dev" />
     <img src="https://github.com/thejaviertc/sws-api/actions/workflows/cd.yml/badge.svg" />
 </div>
 
