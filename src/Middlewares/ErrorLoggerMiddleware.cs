@@ -1,5 +1,6 @@
 using SteamWorkshopStats.Exceptions;
 using SteamWorkshopStats.Services;
+using SteamWorkshopStats.Utils;
 
 namespace SteamWorkshopStats.Middlewares;
 
@@ -29,11 +30,7 @@ public class ErrorLoggerMiddleware
 
 			context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
-			_ = discordService.LogErrorAsync(
-				context.Request.Path,
-				context.Connection.RemoteIpAddress?.ToString() ?? "Unknown",
-				errorMessage
-			);
+			_ = discordService.LogErrorAsync(context.Request.Path, IpUtils.GetIp(context), errorMessage);
 
 			await context.Response.WriteAsJsonAsync(new { Message = errorMessage });
 		}

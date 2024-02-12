@@ -1,4 +1,5 @@
 using SteamWorkshopStats.Services;
+using SteamWorkshopStats.Utils;
 
 namespace SteamWorkshopStats.Middlewares;
 
@@ -13,10 +14,7 @@ public class QueryLoggerMiddleware
 
 	public async Task InvokeAsync(HttpContext context, IDiscordService discordService)
 	{
-		_ = discordService.LogQueryAsync(
-			context.Request.Path,
-			context.Connection.RemoteIpAddress?.ToString() ?? "Unknown"
-		);
+		_ = discordService.LogQueryAsync(context.Request.Path, IpUtils.GetIp(context));
 
 		await _next(context);
 	}
