@@ -8,6 +8,7 @@ namespace SteamWorkshopStats.Controllers;
 [ApiController]
 [Route("[controller]")]
 [EnableRateLimiting("fixed")]
+[ResponseCache(Duration = 60 * 5, Location = ResponseCacheLocation.Any)]
 public class UserController : ControllerBase
 {
 	private readonly IWebHostEnvironment _env;

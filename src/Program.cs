@@ -27,6 +27,7 @@ builder.Services.AddCors(options =>
 	});
 });
 
+builder.Services.AddResponseCaching();
 builder.Services.AddControllers();
 
 builder.Services.AddHttpClient(
@@ -63,6 +64,7 @@ else
 app.UseMiddleware<ErrorLoggerMiddleware>();
 
 app.UseCors();
+app.UseResponseCaching();
 app.UseAuthorization();
 app.UseRateLimiter();
 
