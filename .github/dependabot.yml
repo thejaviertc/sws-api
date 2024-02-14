@@ -1,8 +1,14 @@
 version: 2
 updates:
-  - package-ecosystem: "nuget" # See documentation for possible values
+  - package-ecosystem: "nuget"
     directory: "/"
     schedule:
-        interval: "daily"
+      interval: "daily"
+    open-pull-requests-limit: 30
+    target-branch: "main"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
     open-pull-requests-limit: 30
     target-branch: "main"
