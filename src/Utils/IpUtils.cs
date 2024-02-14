@@ -11,10 +11,7 @@ public static class IpUtils
 	{
 		string? ip = context.Request.Headers["X-Forwarded-For"];
 
-		if (string.IsNullOrEmpty(ip))
-		{
-			ip = context.Connection.RemoteIpAddress?.ToString();
-		}
+		ip = string.IsNullOrEmpty(ip) ? context.Connection.RemoteIpAddress?.ToString() : ip.Split(",")[0].Trim();
 
 		return ip ?? "Unknown";
 	}
