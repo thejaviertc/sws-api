@@ -128,6 +128,13 @@ public class DiscordService : IDiscordService
 			_ = LogErrorAsync("Unknown", "Unknown", "Discord Service LogUserAsync failed");
 	}
 
+	/// <summary>
+	/// Logs an error into a Discord Channel
+	/// </summary>
+	/// <param name="path">Path of the query</param>
+	/// <param name="ip">IP of the User</param>
+	/// <param name="message">Error Message</param>
+	/// <returns></returns>
 	public async Task LogErrorAsync(string path, string ip, string message)
 	{
 		var client = _httpClientFactory.CreateClient("DiscordClient");
