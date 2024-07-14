@@ -28,7 +28,13 @@ jobs:
         run: dotnet test --no-build --verbosity normal
 
       - name: 🔎 SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
+        uses: highbyte/sonarscan-dotnet@v2.3.2
+        with:
+          sonarProjectKey: thejaviertc_sws-api
+          sonarProjectName: thejaviertc_sws-api
+          sonarOrganization: thejaviertc
+          sonarBeginArguments: /d:sonar.qualitygate.wait=true
+          dotnetDisableTests: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -44,7 +50,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: 🚀 Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
