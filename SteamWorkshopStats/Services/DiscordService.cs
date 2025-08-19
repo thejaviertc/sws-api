@@ -119,6 +119,12 @@ public class DiscordService : IDiscordService
 							value = user.Dislikes,
 							inline = true,
 						},
+      						new
+	    					{
+							name = "Awards",
+       							value = user.Awards,
+	      						inline = true,
+   						},
 					},
 					thumbnail = new { url = user.ProfileImageUrl },
 					timestamp = DateTime.UtcNow,

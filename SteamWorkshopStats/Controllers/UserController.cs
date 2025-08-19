@@ -76,6 +76,7 @@ public class UserController : ControllerBase
 			Favorites = addons.Sum(addon => addon.Favorites),
 			Likes = addons.Sum(addon => addon.Likes),
 			Dislikes = addons.Sum(addon => addon.Dislikes),
+   			Awards = addons.Sum(addon => addon.Awards),
 			Addons = addons,
 		};
 

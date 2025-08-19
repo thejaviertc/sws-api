@@ -1,4 +1,4 @@
-﻿using NLog;
+using NLog;
 using SteamWorkshopStats.Exceptions;
 using SteamWorkshopStats.Models;
 using SteamWorkshopStats.Models.Records;
@@ -7,6 +7,7 @@ namespace SteamWorkshopStats.Services;
 
 public class SteamService : ISteamService
 {
+	
 	private readonly IConfiguration _configuration;
 
 	private readonly IHttpClientFactory _httpClientFactory;
@@ -92,7 +93,7 @@ public class SteamService : ISteamService
 		HttpClient client = _httpClientFactory.CreateClient("SteamClient");
 
 		HttpResponseMessage response = await client.GetAsync(
-			$"IPublishedFileService/GetUserFiles/v1/?key={_configuration["SteamApiKey"]}&steamid={steamId}&numperpage=500&return_vote_data=true"
+			$"IPublishedFileService/GetUserFiles/v1/?key={_configuration["SteamApiKey"]}&steamid={steamId}&numperpage=500&return_vote_data=true&return_reactions=true"
 		);
 
 		if (!response.IsSuccessStatusCode)
@@ -125,6 +126,7 @@ public class SteamService : ISteamService
 					Favorites = addon.Favorites,
 					Likes = likes,
 					Dislikes = dislikes,
+					Awards = addon.Awards,
 					Stars = Addon.GetNumberOfStars(likes + dislikes, addon.Votes.Score),
 				}
 			);
