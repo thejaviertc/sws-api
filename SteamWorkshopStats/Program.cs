@@ -62,7 +62,7 @@ public class Program
 		{
 			options.AddDefaultPolicy(policy =>
 			{
-				policy.WithOrigins("https://thejaviertc.github.io").AllowAnyMethod().AllowAnyHeader();
+				policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 			});
 		});
 
