@@ -1,4 +1,4 @@
-﻿namespace SteamWorkshopStats.Models;
+namespace SteamWorkshopStats.Models;
 
 public struct User : IEquatable<User>
 {
@@ -17,6 +17,8 @@ public struct User : IEquatable<User>
 	public int Likes { get; init; }
 
 	public int Dislikes { get; init; }
+
+	public int Awards { get; init; }
 
 	public ICollection<Addon> Addons { get; init; }
 

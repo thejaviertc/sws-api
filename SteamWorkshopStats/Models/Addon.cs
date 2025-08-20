@@ -1,4 +1,4 @@
-﻿namespace SteamWorkshopStats.Models;
+namespace SteamWorkshopStats.Models;
 
 public struct Addon : IComparable<Addon>, IEquatable<Addon>
 {
@@ -17,6 +17,8 @@ public struct Addon : IComparable<Addon>, IEquatable<Addon>
 	public int Likes { get; init; }
 
 	public int Dislikes { get; init; }
+
+	public int Awards { get; init; }
 
 	public int Stars { get; init; }
 

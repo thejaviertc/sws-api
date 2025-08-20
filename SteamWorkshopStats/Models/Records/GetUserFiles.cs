@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace SteamWorkshopStats.Models.Records;
 
@@ -12,6 +12,14 @@ public record class GetUserFilesResponse
 {
 	[JsonPropertyName("publishedfiledetails")]
 	public ICollection<PublishedFile>? PublishedFiles { get; init; }
+}
+public record class Reaction
+{
+	[JsonPropertyName("reactionid")]
+	public int ReactionId { get; init; }
+
+	[JsonPropertyName("count")]
+	public int Count { get; init; }
 }
 
 public record class PublishedFile
@@ -36,6 +44,10 @@ public record class PublishedFile
 
 	[JsonPropertyName("vote_data")]
 	public required VoteData Votes { get; init; }
+
+	[JsonPropertyName("reactions")]
+	public List<Reaction>? Reactions { get; init; }
+	public int Awards => Reactions?.Sum(r => r.Count) ?? 0;
 }
 
 public record class VoteData
