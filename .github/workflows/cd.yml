@@ -25,7 +25,7 @@ jobs:
         run: dotnet build --no-restore
 
       - name: 🔎 SonarCloud Scan
-        uses: highbyte/sonarscan-dotnet@v2.4.2
+        uses: highbyte/sonarscan-dotnet@v2.5.0
         with:
           sonarProjectKey: thejaviertc_sws-api
           sonarProjectName: thejaviertc_sws-api
